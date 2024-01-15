@@ -2,7 +2,8 @@
 
 import { useTheme } from 'next-themes'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { LogOut, Users, Moon, Sun, LogIn } from 'lucide-react'
+import { LogOut, Moon, Sun, LogIn } from 'lucide-react'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 import {
   DropdownMenu,
@@ -19,18 +20,21 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 export default function Menu() {
+  const { data: session } = useSession()
   const { theme, setTheme } = useTheme()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={session ? 'https://github.com/shadcn.png' : ''} />
+          <AvatarFallback>U</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          {session ? session.user?.name : 'My Account'}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuSub>
@@ -45,6 +49,7 @@ export default function Menu() {
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
                 <DropdownMenuItem
+                  className="cursor-pointer"
                   onClick={() => {
                     setTheme('light')
                   }}
@@ -53,6 +58,7 @@ export default function Menu() {
                   <span>Light</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
+                  className="cursor-pointer"
                   onClick={() => {
                     setTheme('dark')
                   }}
@@ -65,14 +71,23 @@ export default function Menu() {
           </DropdownMenuSub>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <LogIn className="mr-2 h-4 w-4" />
-          <span>Log in</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>Log out</span>
-        </DropdownMenuItem>
+        {session ? (
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => signOut()}
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Log out</span>
+          </DropdownMenuItem>
+        ) : (
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => signIn('keycloak')}
+          >
+            <LogIn className="mr-2 h-4 w-4" />
+            <span>Log in</span>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )
