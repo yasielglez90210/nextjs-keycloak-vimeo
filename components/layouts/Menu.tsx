@@ -74,7 +74,7 @@ export default function Menu() {
         {session ? (
           <DropdownMenuItem
             className="cursor-pointer"
-            onClick={() => signOut()}
+            onClick={() => signOut({ callbackUrl: '/' })}
           >
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>

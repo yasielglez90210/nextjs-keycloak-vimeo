@@ -1,6 +1,8 @@
-import NextAuth from 'next-auth'
-import KeycloakProvider from 'next-auth/providers/keycloak'
+import NextAuth, { Account, Session } from 'next-auth'
+import KeycloakProvider, { KeycloakProfile } from 'next-auth/providers/keycloak'
 import { jwtDecode } from 'jwt-decode'
+import { JWT } from 'next-auth/jwt'
+import { OAuthConfig } from 'next-auth/providers/oauth'
 
 async function refreshAccessToken(token: any) {
   const resp = await fetch(`${process.env.REFRESH_TOKEN_URL}`, {
@@ -34,18 +36,22 @@ export const authOptions = {
       issuer: `${process.env.KEYCLOAK_ISSUER}`,
     }),
   ],
+}
+
+const handler = NextAuth({
+  ...authOptions,
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account }: { token: JWT; account: Account | null }) {
       const nowTimeStamp = Math.floor(Date.now() / 1000)
 
       if (account) {
-        token.decoded = jwtDecode(account.access_token)
+        token.decoded = jwtDecode(account.access_token || '')
         token.access_token = account.access_token
         token.id_token = account.id_token
         token.expires_at = account.expires_at
         token.refresh_token = account.refresh_token
         return token
-      } else if (nowTimeStamp < token.expires_at) {
+      } else if (nowTimeStamp < token.expires_at!) {
         return token
       } else {
         console.log('Token has expired. Will refresh...')
@@ -59,15 +65,24 @@ export const authOptions = {
         }
       }
     },
-    async session({ session, token }) {
-      session.access_token = token.access_token
-      session.id_token = token.id_token
+    async session({ session, token }: { session: Session; token: JWT }) {
       session.roles = token.decoded.realm_access.roles
       session.error = token.error
       return session
     },
   },
-}
+  events: {
+    signOut: async ({ token }: { token: JWT }) => {
+      const issuerUrl = (
+        authOptions.providers.find(
+          (p) => p.id === 'keycloak'
+        ) as OAuthConfig<KeycloakProfile>
+      ).options!.issuer!
+      const logOutUrl = new URL(`${issuerUrl}/protocol/openid-connect/logout`)
+      logOutUrl.searchParams.set('id_token_hint', token.id_token!)
+      await fetch(logOutUrl)
+    },
+  },
+})
 
-const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
