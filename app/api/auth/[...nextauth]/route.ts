@@ -1,8 +1,7 @@
 import NextAuth, { Account, Session } from 'next-auth'
-import KeycloakProvider, { KeycloakProfile } from 'next-auth/providers/keycloak'
+import KeycloakProvider from 'next-auth/providers/keycloak'
 import { jwtDecode } from 'jwt-decode'
 import { JWT } from 'next-auth/jwt'
-import { OAuthConfig } from 'next-auth/providers/oauth'
 
 async function refreshAccessToken(token: any) {
   const resp = await fetch(`${process.env.REFRESH_TOKEN_URL}`, {
@@ -73,14 +72,15 @@ const handler = NextAuth({
   },
   events: {
     signOut: async ({ token }: { token: JWT }) => {
-      const issuerUrl = (
-        authOptions.providers.find(
-          (p) => p.id === 'keycloak'
-        ) as OAuthConfig<KeycloakProfile>
-      ).options!.issuer!
-      const logOutUrl = new URL(`${issuerUrl}/protocol/openid-connect/logout`)
-      logOutUrl.searchParams.set('id_token_hint', token.id_token!)
-      await fetch(logOutUrl)
+      try {
+        const issuerUrl = process.env.KEYCLOAK_ISSUER
+        const logOutUrl = new URL(`${issuerUrl}/protocol/openid-connect/logout`)
+        logOutUrl.searchParams.set('id_token_hint', token.id_token!)
+        await fetch(logOutUrl)
+      } catch (error) {
+        console.error('Error signing out', error)
+        throw new Error('Error signing out')
+      }
     },
   },
 })
