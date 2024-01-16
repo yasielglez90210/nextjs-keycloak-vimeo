@@ -2,7 +2,17 @@
 
 import { useTheme } from 'next-themes'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { LogOut, Moon, Sun, LogIn } from 'lucide-react'
+import {
+  LogOut,
+  Moon,
+  Sun,
+  LogIn,
+  UploadCloud,
+  User,
+  User2,
+  CircleUser,
+  UserRound,
+} from 'lucide-react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 
 import {
@@ -18,6 +28,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import Link from 'next/link'
 
 export default function Menu() {
   const { data: session } = useSession()
@@ -28,7 +39,9 @@ export default function Menu() {
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
           <AvatarImage src={session ? 'https://github.com/shadcn.png' : ''} />
-          <AvatarFallback>U</AvatarFallback>
+          <AvatarFallback>
+            <UserRound />
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
@@ -36,6 +49,12 @@ export default function Menu() {
           {session ? session.user?.name : 'My Account'}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <Link href={'/vimeo/create'}>
+          <DropdownMenuItem className="cursor-pointer">
+            <UploadCloud className="mr-2 h-4 w-4" />
+            <span>Upload video</span>
+          </DropdownMenuItem>
+        </Link>
         <DropdownMenuGroup>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>

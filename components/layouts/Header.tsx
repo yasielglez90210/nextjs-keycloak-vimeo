@@ -3,7 +3,7 @@ import Menu from './Menu'
 
 export default function Header() {
   return (
-    <header className="relative">
+    <header className="fixed w-full bg-white dark:bg-black">
       <nav aria-label="Top" className="px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="ml-4 flex lg:ml-0">
@@ -15,7 +15,6 @@ export default function Header() {
               />
             </Link>
           </div>
-
           <Menu />
         </div>
       </nav>

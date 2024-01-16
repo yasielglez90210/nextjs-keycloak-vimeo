@@ -53,13 +53,10 @@ const handler = NextAuth({
       } else if (nowTimeStamp < token.expires_at!) {
         return token
       } else {
-        console.log('Token has expired. Will refresh...')
         try {
           const refreshedToken = await refreshAccessToken(token)
-          console.log('Token is refreshed.')
           return refreshedToken
         } catch (error) {
-          console.error('Error refreshing access token', error)
           return { ...token, error: 'RefreshAccessTokenError' }
         }
       }
@@ -78,7 +75,6 @@ const handler = NextAuth({
         logOutUrl.searchParams.set('id_token_hint', token.id_token!)
         await fetch(logOutUrl)
       } catch (error) {
-        console.error('Error signing out', error)
         throw new Error('Error signing out')
       }
     },
