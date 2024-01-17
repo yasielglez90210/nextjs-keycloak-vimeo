@@ -10,7 +10,7 @@ export default function CreateVimeoPage() {
 
   if (session && isRol) {
     return (
-      <div className="flex h-screen flex-col items-center justify-center">
+      <div className="flex h-screen flex-col items-center justify-center font-bold">
         <h2>Create Vimeo Page</h2>
       </div>
     )

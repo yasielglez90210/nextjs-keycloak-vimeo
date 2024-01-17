@@ -1,21 +1,19 @@
-import Link from 'next/link'
+import { Link } from '@/navigation'
 import Menu from './Menu'
+import { getLocale } from 'next-intl/server'
+import vimeoLogo from '@/public/vimeo.svg'
+import Image from 'next/image'
 
-export default function Header() {
+export default async function Header() {
+  const locale = await getLocale()
   return (
     <header className="fixed w-full bg-white dark:bg-black">
       <nav aria-label="Top" className="px-8">
         <div className="flex h-16 items-center justify-between">
-          <div className="ml-4 flex lg:ml-0">
-            <Link href="/">
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
-            </Link>
-          </div>
-          <Menu />
+          <Link href="/">
+            <Image alt="Logo de Vimeo" src={vimeoLogo} width={34} height={34} />
+          </Link>
+          <Menu locale={locale} />
         </div>
       </nav>
     </header>

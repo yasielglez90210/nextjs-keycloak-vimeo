@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/layouts/ThemeProvider'
 import Header from '@/components/layouts/Header'
 import SessionProviderWrapper from '@/components/layouts/SessionProviderWrapper'
+import { NextIntlClientProvider, useMessages } from 'next-intl'
 
 export const fontSans = FontSans({
   subsets: ['latin'],
@@ -18,12 +19,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params: { locale },
 }: {
   children: React.ReactNode
+  params: { locale: 'es' | 'en' }
 }) {
+  const messages = useMessages()
+
   return (
     <SessionProviderWrapper>
-      <html lang="en">
+      <html lang={locale}>
         <body
           className={cn(
             'min-h-screen bg-background font-sans antialiased',
@@ -36,8 +41,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            {children}
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              <Header />
+              {children}
+            </NextIntlClientProvider>
           </ThemeProvider>
         </body>
       </html>

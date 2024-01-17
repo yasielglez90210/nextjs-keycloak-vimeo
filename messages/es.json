@@ -1,0 +1,19 @@
+{
+  "Menu": {
+    "My Account": "Mi cuenta",
+    "Upload video": "Publicar video",
+    "Language": "Lenguaje",
+    "English": "Inglés",
+    "Spanish": "Español",
+    "Themes": "Aspecto",
+    "Light": "Claro",
+    "Dark": "Oscuro",
+    "Log out": "Cerrar sesión",
+    "Log in": "Iniciar sesión"
+  },
+  "NotFound": {
+    "Not Found": "No encontrada",
+    "Go Back Home": "Volver al inicio",
+    "Unauthorized": "No autorizado"
+  }
+}

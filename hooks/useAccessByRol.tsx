@@ -1,7 +1,7 @@
 'use client'
 
 import { signIn, useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/navigation'
 import { useEffect } from 'react'
 
 export default function useAccessByRol({
@@ -20,9 +20,7 @@ export default function useAccessByRol({
     }
 
     if (status == 'unauthenticated') {
-      signIn('keycloak', {
-        callbackUrl,
-      })
+      signIn('keycloak')
     }
   }, [session, status, router, callbackUrl, rol])
 
