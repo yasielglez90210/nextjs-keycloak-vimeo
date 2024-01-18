@@ -7,7 +7,7 @@ import Image from 'next/image'
 export default async function Header() {
   const locale = await getLocale()
   return (
-    <header className="fixed w-full bg-white dark:bg-black">
+    <header className="fixed w-full bg-white dark:bg-black shadow-sm z-10">
       <nav aria-label="Top" className="px-8">
         <div className="flex h-16 items-center justify-between">
           <Link href="/">

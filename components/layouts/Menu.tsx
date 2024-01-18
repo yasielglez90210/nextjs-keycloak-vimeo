@@ -61,7 +61,7 @@ export default function Menu({ locale }: { locale: string }) {
           {session ? session.user?.name : t('My Account')}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={'/vimeo/create'}>
+        <Link href={'/video/create'}>
           <DropdownMenuItem className="cursor-pointer">
             <UploadCloud className="mr-2 h-4 w-4" />
             <span>{t('Upload video')}</span>

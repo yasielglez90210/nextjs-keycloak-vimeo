@@ -5,7 +5,7 @@ import useAccessByRol from '@/hooks/useAccessByRol'
 export default function CreateVimeoPage() {
   const { session, isRol } = useAccessByRol({
     rol: 'admin',
-    callbackUrl: '/vimeo/create',
+    callbackUrl: '/video/create',
   })
 
   if (session && isRol) {
