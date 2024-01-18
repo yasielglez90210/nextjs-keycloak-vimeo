@@ -1,13 +1,13 @@
+import VideoListSkeleton from '@/components/skeletons/VideoListSkeleton'
 import VideoList from '@/components/vimeo/VideoList'
-import { getAllVideos } from '@/lib/vimeo'
+import { Suspense } from 'react'
 
 export default async function Home() {
-  const response = await getAllVideos()
-  const { data: videos } = response
-
   return (
     <div className="min-h-screen pt-24 px-8">
-      <VideoList videos={videos} />
+      <Suspense fallback={<VideoListSkeleton />}>
+        <VideoList />
+      </Suspense>
     </div>
   )
 }
