@@ -11,9 +11,13 @@
     "Log out": "Log out",
     "Log in": "Log in"
   },
+  "Search": {
+    "There are no results that match": "There are no results that match"
+  },
   "NotFound": {
     "Not Found": "Not Found",
     "Go Back Home": "Go Back Home",
-    "Unauthorized": "Unauthorized"
+    "Unauthorized": "Unauthorized",
+    "Something went wrong": "Something went wrong"
   }
 }

@@ -8,7 +8,7 @@ export default function VideoItem({ video }: { video: Video }) {
   return (
     <Link href={`/video/${id}`} className="">
       <div className="flex flex-col">
-        <AspectRatio ratio={16 / 9} className="mb-2 bg-muted">
+        <AspectRatio ratio={16 / 9} className="mb-2">
           <Image
             className="rounded-lg object-cover"
             fill

@@ -27,7 +27,7 @@ async function refreshAccessToken(token: any) {
   }
 }
 
-export const authOptions = {
+const handler = NextAuth({
   providers: [
     KeycloakProvider({
       clientId: `${process.env.KEYCLOAK_ID}`,
@@ -35,10 +35,6 @@ export const authOptions = {
       issuer: `${process.env.KEYCLOAK_ISSUER}`,
     }),
   ],
-}
-
-const handler = NextAuth({
-  ...authOptions,
   callbacks: {
     async jwt({ token, account }: { token: JWT; account: Account | null }) {
       const nowTimeStamp = Math.floor(Date.now() / 1000)
