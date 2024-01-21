@@ -12,7 +12,7 @@ export default async function Home({
 
   return (
     <div className="min-h-screen pt-24 px-8">
-      <Suspense key={query} fallback={<VideoListSkeleton />}>
+      <Suspense key={query + page} fallback={<VideoListSkeleton />}>
         <VideoList page={page} query={query} />
       </Suspense>
     </div>

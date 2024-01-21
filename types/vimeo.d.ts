@@ -18,6 +18,7 @@ export interface Video {
   name: string
   description: string | null
   link: string
+  player_embed_url: string
   embed: Embed
   created_time: string
   pictures: Pictures

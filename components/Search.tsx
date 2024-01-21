@@ -6,10 +6,12 @@ import { Input } from './ui/input'
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from '@/navigation'
 import { useDebouncedCallback } from 'use-debounce'
+import { useTranslations } from 'next-intl'
 
 export default function Search() {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const t = useTranslations('Search')
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -36,7 +38,7 @@ export default function Search() {
         <Input
           name="query"
           type="text"
-          placeholder="Buscar"
+          placeholder={t('Search')}
           className="rounded-l-[50px] rounded-r-none dark:border-r-zinc-700 focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:ring-gray-400"
           defaultValue={searchParams.get('query')?.toString()}
           onChange={(event) => handleChangeInput(event.target.value)}

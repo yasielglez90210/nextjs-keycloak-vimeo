@@ -12,6 +12,7 @@
     "Log in": "Iniciar sesión"
   },
   "Search": {
+    "Search": "Buscar",
     "There are no results that match": "No hay resultados que coincidan con"
   },
   "NotFound": {
@@ -19,5 +20,12 @@
     "Go Back Home": "Volver al inicio",
     "Unauthorized": "No autorizado",
     "Something went wrong": "Algo salió mal"
+  },
+  "Video": {
+    "Title": "Título",
+    "Drop the files here": "Suelta los archivos aquí",
+    "Drag & drop files here, or click to select files": "Arrastre y suelte archivos aquí, o haga clic para seleccionar archivos",
+    "Upload": "Subir",
+    "Uploading": "Cargando"
   }
 }
