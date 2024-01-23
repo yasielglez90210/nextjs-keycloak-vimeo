@@ -20,7 +20,7 @@ export default function VideoItem({ video }: { video: Video }) {
         </AspectRatio>
         <div className="pr-4">
           <h2 className="font-bold text-wrap">{video.name}</h2>
-          <p className="text-sm">{video.description}</p>
+          {/* <p className="text-sm">{video.description}</p> */}
         </div>
       </div>
     </Link>

@@ -11,7 +11,7 @@ export default async function Home({
   const query = searchParams.query ? searchParams.query : ''
 
   return (
-    <div className="min-h-screen pt-24 px-8">
+    <div className="min-h-screen pt-24 px-8 flex flex-col">
       <Suspense key={query + page} fallback={<VideoListSkeleton />}>
         <VideoList page={page} query={query} />
       </Suspense>

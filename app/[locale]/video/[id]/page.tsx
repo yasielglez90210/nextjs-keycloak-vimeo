@@ -13,7 +13,7 @@ export default async function VideoViewPage({
   if (!video) notFound()
 
   return (
-    <div className="pt-24 w-10/12 mx-auto">
+    <div className="pt-24 w-9/12 mx-auto">
       <VideoPlayer video={video} />
     </div>
   )

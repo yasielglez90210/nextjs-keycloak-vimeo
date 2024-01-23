@@ -1,14 +1,12 @@
 import allVideos from '@/mocks/all-videos.json'
 import video from '@/mocks/video.json'
 import { APIVimeo, Video } from '@/types/vimeo'
-import { json } from 'stream/consumers'
 
 const VIMEO_ACCESS_TOKEN = process.env.VIMEO_ACCESS_TOKEN
 const VIMEO_USER_ID = process.env.VIMEO_USER_ID
 const VIMEO_PER_PAGE = process.env.VIMEO_PER_PAGE
-// const VIMEO_PROJECT_ID = process.env.VIMEO_PROJECT_ID
 
-// const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export async function getAllVideos({
   page,
@@ -18,14 +16,13 @@ export async function getAllVideos({
   query: string
 }) {
   try {
-    // const path = `/users/${VIMEO_USER_ID}/projects/${VIMEO_PROJECT_ID}/videos?query=${query}&page=${page}&per_page=${VIMEO_PER_PAGE}`
     const path = `/users/${VIMEO_USER_ID}/videos?query=${query}&page=${page}&per_page=${VIMEO_PER_PAGE}`
     const res = await fetch(`https://api.vimeo.com${path}`, {
       method: 'GET',
       headers: {
         Authorization: `bearer ${VIMEO_ACCESS_TOKEN}`,
       },
-      // cache: 'reload',
+      cache: 'reload',
       next: { tags: ['allVideos'] },
     })
 
@@ -53,7 +50,7 @@ export async function getVideo({ id }: { id: string }) {
       headers: {
         Authorization: `bearer ${VIMEO_ACCESS_TOKEN}`,
       },
-      // cache: 'reload',
+      cache: 'reload',
     })
 
     if (res.status === 404) {

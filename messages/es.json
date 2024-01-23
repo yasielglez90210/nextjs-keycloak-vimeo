@@ -13,7 +13,8 @@
   },
   "Search": {
     "Search": "Buscar",
-    "There are no results that match": "No hay resultados que coincidan con"
+    "There are no results that match": "No hay resultados que coincidan con",
+    "There are no results": "No hay resultados"
   },
   "NotFound": {
     "Not Found": "No encontrada",
@@ -27,5 +28,9 @@
     "Drag & drop files here, or click to select files": "Arrastre y suelte archivos aquí, o haga clic para seleccionar archivos",
     "Upload": "Subir",
     "Uploading": "Cargando"
+  },
+  "Pagination": {
+    "Next": "Siguiente",
+    "Previous": "Anterior"
   }
 }

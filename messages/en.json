@@ -13,7 +13,8 @@
   },
   "Search": {
     "Search": "Search",
-    "There are no results that match": "There are no results that match"
+    "There are no results that match": "There are no results that match",
+    "There are no results": "There are no results"
   },
   "NotFound": {
     "Not Found": "Not Found",
@@ -27,5 +28,9 @@
     "Drag & drop files here, or click to select files": "Drag & drop files here, or click to select files",
     "Upload": "Upload",
     "Uploading": "Uploading"
+  },
+  "Pagination": {
+    "Next": "Next",
+    "Previous": "Previous"
   }
 }
