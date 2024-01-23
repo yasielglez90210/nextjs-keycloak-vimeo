@@ -25,10 +25,12 @@ export default async function VideoList({
             <VideoItem key={video.resource_key} video={video} />
           ))}
         </div>
-        <MyPagination
-          totalPages={totalPages}
-          className="self-center lg:self-end mt-auto mb-10"
-        />
+        {total > per_page && (
+          <MyPagination
+            totalPages={totalPages}
+            className="self-center lg:self-end mt-auto mb-10"
+          />
+        )}
       </>
     )
   } else {

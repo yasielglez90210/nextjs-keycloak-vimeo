@@ -10,7 +10,15 @@ export default function VideoPlayer({ video }: { video: Video }) {
   return (
     <>
       <AspectRatio ratio={16 / 9} className="mb-2">
-        <ReactPlayer url={video.link} width="100%" height="100%" controls />
+        <ReactPlayer
+          url={video.link}
+          width="100%"
+          height="100%"
+          controls={false}
+          muted
+          playing
+          loop
+        />
       </AspectRatio>
       <div className="pr-4 mb-10 pl-2">
         <h2 className="font-bold text-wrap">{video.name}</h2>
