@@ -2,7 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Link } from '@/navigation'
 import { LogOut, LogIn, UploadCloud, UserRound } from 'lucide-react'
 
@@ -17,9 +17,10 @@ import {
 import LanguageSwitcher from './LanguageSwitcher'
 import ThemeSwitcher from './ThemeSwitcher'
 
-export default function Menu({ locale }: { locale: string }) {
+export default function Menu() {
   const { data: session } = useSession()
   const t = useTranslations('Menu')
+  const locale = useLocale()
 
   return (
     <DropdownMenu>

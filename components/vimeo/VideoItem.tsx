@@ -34,37 +34,34 @@ export default function VideoItem({ video }: { video: Video }) {
     >
       <div className="flex flex-col">
         <AspectRatio ratio={16 / 9} className="mb-2">
-          <div className="rounded-lg object-cover">
-            {!play && (
-              <Image
-                className="rounded-lg object-cover"
-                fill
-                sizes="cover"
-                loading="lazy"
-                src={video.pictures.base_link}
-                alt={video.name}
-              />
-            )}
+          {!play && (
+            <Image
+              className="rounded-lg object-cover"
+              fill
+              priority
+              sizes="cover"
+              src={video.pictures.base_link}
+              alt={video.name}
+            />
+          )}
 
-            {isHovered && (
-              <ReactPlayer
-                url={video.link}
-                width="100%"
-                height="100%"
-                controls={false}
-                muted
-                playing
-                loop
-                style={{
-                  cursor: 'pointer',
-                  position: 'absolute',
-                  left: 0,
-                  top: 0,
-                }}
-                onPlay={onPlay}
-              />
-            )}
-          </div>
+          {isHovered && (
+            <ReactPlayer
+              url={video.link}
+              width="100%"
+              height="100%"
+              controls={false}
+              muted
+              playing
+              loop
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+              }}
+              onPlay={onPlay}
+            />
+          )}
         </AspectRatio>
         <div className="pr-4">
           <h2 className="font-bold text-wrap">{video.name}</h2>

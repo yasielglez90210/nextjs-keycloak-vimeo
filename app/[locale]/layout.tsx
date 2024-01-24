@@ -41,7 +41,6 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <NextIntlClientProvider locale={locale} messages={messages}>
-              <Header />
               {children}
             </NextIntlClientProvider>
           </ThemeProvider>

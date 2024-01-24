@@ -1,3 +1,4 @@
+import Layout from '@/components/layouts/Layout'
 import VideoPlayer from '@/components/vimeo/VideoPlayer'
 import { getVideo } from '@/lib/vimeo'
 import { notFound } from 'next/navigation'
@@ -13,8 +14,10 @@ export default async function VideoViewPage({
   if (!video) notFound()
 
   return (
-    <div className="pt-24 w-9/12 mx-auto">
-      <VideoPlayer video={video} />
-    </div>
+    <Layout>
+      <div className="pt-24 w-9/12 mx-auto">
+        <VideoPlayer video={video} />
+      </div>
+    </Layout>
   )
 }
