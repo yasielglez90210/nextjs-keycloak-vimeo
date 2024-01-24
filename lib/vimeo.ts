@@ -8,7 +8,7 @@ const VIMEO_CLIENT_SECRET = process.env.VIMEO_CLIENT_SECRET
 const VIMEO_USER_ID = process.env.VIMEO_USER_ID
 const VIMEO_PER_PAGE = process.env.VIMEO_PER_PAGE
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+// const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export async function getAllVideos({
   page,
@@ -71,7 +71,13 @@ export async function getVideo({ id }: { id: string }) {
   // return apiVimeo
 }
 
-export async function uploadVideo({ path }: { path: string }) {
+export async function uploadVideo({
+  path,
+  name,
+}: {
+  path: string
+  name: string
+}) {
   let Vimeo = require('@vimeo/vimeo').Vimeo
 
   const client = new Vimeo(

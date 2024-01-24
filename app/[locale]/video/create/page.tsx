@@ -6,11 +6,10 @@ import { Label } from '@/components/ui/label'
 import useAccessByRol from '@/hooks/useAccessByRol'
 import { uploadFileAction } from '@/lib/actions'
 import { useTranslations } from 'next-intl'
-import { dotSpinner } from 'ldrs'
 import Dropzone from '@/components/Dropzone'
-import { useState } from 'react'
-
-dotSpinner.register()
+import { useCallback, useState } from 'react'
+import { UploadCloud } from 'lucide-react'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export default function CreateVimeoPage() {
   const { session, isRol } = useAccessByRol({
@@ -24,15 +23,18 @@ export default function CreateVimeoPage() {
 
   const btnLoading = loading || name?.length === 0 || !file
 
-  const uploadSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    if (name?.length === 0 || !file) return
+  const uploadSubmit = useCallback(
+    async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      if (name?.length === 0 || !file) return
 
-    const formData = new FormData(event.currentTarget)
-    formData.set('file', file as File)
-    setLoading(true)
-    await uploadFileAction(formData)
-  }
+      const formData = new FormData(event.currentTarget)
+      formData.set('file', file as File)
+      setLoading(true)
+      await uploadFileAction(formData)
+    },
+    [file, name]
+  )
 
   if (session && isRol) {
     return (
@@ -64,16 +66,20 @@ export default function CreateVimeoPage() {
             type="submit"
           >
             {loading && (
-              <div className="mr-2 flex justify-center items-center">
-                <l-dot-spinner
-                  size="20"
-                  speed="1.5"
-                  color="white"
-                ></l-dot-spinner>
-              </div>
+              <UploadCloud width={20} className="mr-2 animate-pulse" />
             )}
             {loading ? t('Uploading') : t('Upload')}
           </Button>
+
+          {loading && (
+            <Alert className="w-full mx-auto text-center mt-8">
+              <AlertDescription>
+                {t(
+                  'This process may take several minutes while we load and optimize the selected video'
+                )}
+              </AlertDescription>
+            </Alert>
+          )}
         </form>
       </div>
     )

@@ -13,7 +13,7 @@ export default function Dropzone({
 }: {
   file: File | null
   setFile: (file: File | null) => void
-  loading: boolean
+  loading: boolean | undefined
 }) {
   const t = useTranslations('Video')
   const onDrop = useCallback(

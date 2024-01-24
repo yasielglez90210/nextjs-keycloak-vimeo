@@ -27,7 +27,8 @@
     "Drop the files here": "Drop the files here",
     "Drag & drop files here, or click to select files": "Drag & drop files here, or click to select files",
     "Upload": "Upload",
-    "Uploading": "Uploading"
+    "Uploading": "Uploading",
+    "This process may take several minutes while we load and optimize the selected video": "This process may take several minutes while we load and optimize the selected video"
   },
   "Pagination": {
     "Next": "Next",

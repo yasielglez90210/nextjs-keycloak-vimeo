@@ -44,6 +44,7 @@ export default function Search() {
           onChange={(event) => handleChangeInput(event.target.value)}
         />
         <Button
+          aria-label="Search"
           type="submit"
           className="rounded-l-none rounded-r-[50px] px-5 bg-gray-100 hover:bg-gray-200 text-zinc-800 border border-zinc-200 border-l-0 dark:bg-zinc-800 dark:border-zinc-700 dark:text-gray-200 dark:border-l-0"
         >

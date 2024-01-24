@@ -16,6 +16,7 @@ export interface Paging {
 export interface Video {
   uri: string
   name: string
+  status: string
   description: string | null
   link: string
   player_embed_url: string
@@ -33,4 +34,12 @@ export interface Pictures {
   uri: string
   base_link: string
   resource_key: string
+  sizes: Size[]
+}
+
+export interface Size {
+  width: number
+  height: number
+  link: string
+  link_with_play_button?: string
 }

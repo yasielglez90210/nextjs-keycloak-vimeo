@@ -27,7 +27,8 @@
     "Drop the files here": "Suelta los archivos aquí",
     "Drag & drop files here, or click to select files": "Arrastre y suelte archivos aquí, o haga clic para seleccionar archivos",
     "Upload": "Subir",
-    "Uploading": "Cargando"
+    "Uploading": "Subiendo",
+    "This process may take several minutes while we load and optimize the selected video": "Este proceso puede tardar varios minutos mientras cargamos y optimizamos el video seleccionado"
   },
   "Pagination": {
     "Next": "Siguiente",

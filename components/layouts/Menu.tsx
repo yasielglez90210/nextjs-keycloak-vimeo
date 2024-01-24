@@ -25,7 +25,10 @@ export default function Menu({ locale }: { locale: string }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className="cursor-pointer">
-          <AvatarImage src={session ? 'https://github.com/shadcn.png' : ''} />
+          <AvatarImage
+            role="img"
+            src={session ? 'https://github.com/shadcn.png' : ''}
+          />
           <AvatarFallback>
             <UserRound />
           </AvatarFallback>
