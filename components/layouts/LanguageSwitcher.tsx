@@ -1,10 +1,6 @@
 import { Languages, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useSearchParams } from 'next/navigation'
-import { useRouter, usePathname } from '@/navigation'
 import { useTranslations } from 'next-intl'
-import { useSession } from 'next-auth/react'
-
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -13,29 +9,11 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu'
-import { setKeycloakAttribute } from '@/lib/actions'
+import useKeycloakAttributes from '@/hooks/useKeycloakAttributes'
 
-export default function LanguageSwitcher({ locale }: { locale: string }) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+export default function LanguageSwitcher() {
   const t = useTranslations('Menu')
-  const { data: session } = useSession()
-
-  const handleLocaleSwitcher = (nexLocale: string) => {
-    const params = new URLSearchParams(searchParams)
-
-    if (session) {
-      setKeycloakAttribute({
-        user: session.sub!,
-        access_token: session.access_token!,
-        attribute: 'locale',
-        value: nexLocale,
-      })
-    }
-
-    router.push(`${pathname}?${params.toString()}`, { locale: nexLocale })
-  }
+  const { locale, handleLocaleSwitcher } = useKeycloakAttributes()
 
   return (
     <DropdownMenuGroup>

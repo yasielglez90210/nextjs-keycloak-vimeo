@@ -1,6 +1,7 @@
 import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
-
+import { useTranslations } from 'next-intl'
+import useKeycloakAttributes from '@/hooks/useKeycloakAttributes'
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -9,27 +10,11 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useTranslations } from 'next-intl'
-import { useSession } from 'next-auth/react'
-import { setKeycloakAttribute } from '@/lib/actions'
 
 export default function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme()
+  const { theme } = useTheme()
   const t = useTranslations('Menu')
-  const { data: session } = useSession()
-
-  const handleThemeSwitcher = (nextTheme: string) => {
-    if (session) {
-      setKeycloakAttribute({
-        user: session.sub!,
-        access_token: session.access_token!,
-        attribute: 'theme',
-        value: nextTheme,
-      })
-    }
-
-    setTheme(nextTheme)
-  }
+  const { handleThemeSwitcher } = useKeycloakAttributes()
 
   return (
     <DropdownMenuGroup>

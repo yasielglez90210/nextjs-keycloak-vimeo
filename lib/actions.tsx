@@ -27,13 +27,11 @@ export async function uploadFileAction(formData: FormData) {
 export async function setKeycloakAttribute({
   user,
   access_token,
-  attribute,
-  value,
+  attributes,
 }: {
   user: string
   access_token: string
-  attribute: string
-  value: string
+  attributes: { [key: string]: string }
 }) {
   const userId = decrypt(user)
   const accessToken = decrypt(access_token)
@@ -42,7 +40,7 @@ export async function setKeycloakAttribute({
 
   const body = JSON.stringify({
     attributes: {
-      [attribute]: [value],
+      ...attributes,
     },
   })
 
