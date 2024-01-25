@@ -99,7 +99,7 @@ export async function uploadVideo({
           resolve(uri)
         },
         function (bytesUploaded: number, bytesTotal: number) {
-          var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2)
+          // var percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2)
           // console.log(bytesUploaded, bytesTotal, percentage + '%')
         },
         function (error: any) {
@@ -108,7 +108,7 @@ export async function uploadVideo({
       )
     })
 
-    const message = await new Promise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       const interval = setInterval(async () => {
         try {
           const { body } = await client.request(

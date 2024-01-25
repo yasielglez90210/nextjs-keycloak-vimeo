@@ -65,7 +65,7 @@ export default function Dropzone({
               className="flex absolute -right-4 -top-4 h-8 w-8 items-center justify-center rounded-full ml-5 disabled:cursor-not-allowed"
               onClick={() => setFile(null)}
             >
-              <XCircle className="h-6 w-6 fill-white transition-colors hover:fill-zinc-200" />
+              <XCircle className="h-6 w-6 fill-white transition-colors hover:fill-zinc-200 dark:text-white dark:fill-black dark:hover:fill-zinc-600" />
             </button>
           </div>
         </div>
