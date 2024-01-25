@@ -10,10 +10,26 @@ import {
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useTranslations } from 'next-intl'
+import { useSession } from 'next-auth/react'
+import { setKeycloakAttribute } from '@/lib/actions'
 
 export default function ThemeSwitcher() {
   const { theme, setTheme } = useTheme()
   const t = useTranslations('Menu')
+  const { data: session } = useSession()
+
+  const handleThemeSwitcher = (nextTheme: string) => {
+    if (session) {
+      setKeycloakAttribute({
+        user: session.sub!,
+        access_token: session.access_token!,
+        attribute: 'theme',
+        value: nextTheme,
+      })
+    }
+
+    setTheme(nextTheme)
+  }
 
   return (
     <DropdownMenuGroup>
@@ -31,7 +47,7 @@ export default function ThemeSwitcher() {
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                setTheme('light')
+                handleThemeSwitcher('light')
               }}
             >
               <Sun className="mr-2 h-4 w-4" />
@@ -40,7 +56,7 @@ export default function ThemeSwitcher() {
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                setTheme('dark')
+                handleThemeSwitcher('dark')
               }}
             >
               <Moon className="mr-2 h-4 w-4" />

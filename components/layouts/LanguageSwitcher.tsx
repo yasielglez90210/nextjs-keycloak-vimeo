@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils'
 import { useSearchParams } from 'next/navigation'
 import { useRouter, usePathname } from '@/navigation'
 import { useTranslations } from 'next-intl'
+import { useSession } from 'next-auth/react'
 
 import {
   DropdownMenuGroup,
@@ -12,17 +13,30 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from '@/components/ui/dropdown-menu'
+import { setKeycloakAttribute } from '@/lib/actions'
 
 export default function LanguageSwitcher({ locale }: { locale: string }) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const t = useTranslations('Menu')
+  const { data: session } = useSession()
 
   const handleLocaleSwitcher = (nexLocale: string) => {
     const params = new URLSearchParams(searchParams)
+
+    if (session) {
+      setKeycloakAttribute({
+        user: session.sub!,
+        access_token: session.access_token!,
+        attribute: 'locale',
+        value: nexLocale,
+      })
+    }
+
     router.push(`${pathname}?${params.toString()}`, { locale: nexLocale })
   }
+
   return (
     <DropdownMenuGroup>
       <DropdownMenuSub>

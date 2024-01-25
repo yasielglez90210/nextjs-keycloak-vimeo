@@ -5,6 +5,7 @@ import { writeFile } from 'fs/promises'
 import { revalidateTag } from 'next/cache'
 import { join } from 'path'
 import { uploadVideo } from './vimeo'
+import { decrypt } from './utils'
 
 export async function uploadFileAction(formData: FormData) {
   const name = formData.get('name') as string
@@ -21,4 +22,42 @@ export async function uploadFileAction(formData: FormData) {
   const id = uri.split('/').pop()
   revalidateTag('allVideos')
   redirect(`/video/${id}`)
+}
+
+export async function setKeycloakAttribute({
+  user,
+  access_token,
+  attribute,
+  value,
+}: {
+  user: string
+  access_token: string
+  attribute: string
+  value: string
+}) {
+  const userId = decrypt(user)
+  const accessToken = decrypt(access_token)
+
+  const url = `${process.env.KEYCLOAK_HOST}/admin/realms/eternity/users/${userId}`
+
+  const body = JSON.stringify({
+    attributes: {
+      [attribute]: [value],
+    },
+  })
+
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: body,
+  })
+
+  if (!res.ok) {
+    return false
+  }
+
+  return true
 }

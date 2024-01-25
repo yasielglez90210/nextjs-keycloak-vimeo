@@ -5,6 +5,8 @@ declare module 'next-auth' {
   interface Session {
     roles?: string[]
     error?: any
+    sub?: string
+    access_token?: string
   }
 
   interface Account {

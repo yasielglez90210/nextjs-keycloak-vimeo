@@ -1,9 +1,8 @@
 import type { APIVimeo, Video } from '@/types/vimeo'
 import VideoItem from '@/components/vimeo/VideoItem'
 import { getAllVideos } from '@/lib/vimeo'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { getTranslations } from 'next-intl/server'
 import MyPagination from '@/components/MyPagination'
+import NotVideos from './NotVideos'
 
 export default async function VideoList({
   page,
@@ -14,7 +13,6 @@ export default async function VideoList({
 }) {
   const response = await getAllVideos({ page, query })
   const { data: videos, total, per_page } = response as APIVimeo
-  const t = await getTranslations('Search')
   const totalPages = Math.ceil(total / per_page)
 
   if (videos.length > 0) {
@@ -37,16 +35,6 @@ export default async function VideoList({
       </>
     )
   } else {
-    return (
-      <Alert className="max-w-md mx-auto text-center">
-        {query ? (
-          <AlertDescription>
-            {t('There are no results that match')}: <strong>{query}</strong>
-          </AlertDescription>
-        ) : (
-          <AlertDescription>{t('There are no results')}</AlertDescription>
-        )}
-      </Alert>
-    )
+    return <NotVideos query={query} />
   }
 }

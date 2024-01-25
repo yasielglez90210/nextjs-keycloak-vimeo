@@ -2,6 +2,7 @@ import NextAuth, { Account, Session } from 'next-auth'
 import KeycloakProvider from 'next-auth/providers/keycloak'
 import { jwtDecode } from 'jwt-decode'
 import { JWT } from 'next-auth/jwt'
+import { encrypt } from '@/lib/utils'
 
 async function refreshAccessToken(token: any) {
   const resp = await fetch(`${process.env.REFRESH_TOKEN_URL}`, {
@@ -32,7 +33,7 @@ const handler = NextAuth({
     KeycloakProvider({
       clientId: `${process.env.KEYCLOAK_ID}`,
       clientSecret: `${process.env.KEYCLOAK_SECRET}`,
-      issuer: `${process.env.KEYCLOAK_ISSUER}`,
+      issuer: `${process.env.KEYCLOAK_HOST}/realms/eternity`,
     }),
   ],
   callbacks: {
@@ -58,6 +59,8 @@ const handler = NextAuth({
       }
     },
     async session({ session, token }: { session: Session; token: JWT }) {
+      session.access_token = encrypt(token.access_token!)
+      session.sub = encrypt(token.sub!)
       session.roles = token.decoded.realm_access.roles
       session.error = token.error
       return session
@@ -66,7 +69,7 @@ const handler = NextAuth({
   events: {
     signOut: async ({ token }: { token: JWT }) => {
       try {
-        const issuerUrl = process.env.KEYCLOAK_ISSUER
+        const issuerUrl = `${process.env.KEYCLOAK_HOST}/realms/eternity`
         const logOutUrl = new URL(`${issuerUrl}/protocol/openid-connect/logout`)
         logOutUrl.searchParams.set('id_token_hint', token.id_token!)
         await fetch(logOutUrl)

@@ -10,7 +10,6 @@ import Dropzone from '@/components/Dropzone'
 import { useCallback, useState } from 'react'
 import { UploadCloud } from 'lucide-react'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import Header from '@/components/layouts/Header'
 import Layout from '@/components/layouts/Layout'
 
 export default function CreateVimeoPage() {
@@ -19,24 +18,21 @@ export default function CreateVimeoPage() {
     callbackUrl: '/video/create',
   })
   const t = useTranslations('Video')
-  const [name, setName] = useState<string>()
+  const [name, setName] = useState<string>('')
   const [file, setFile] = useState<File | null>(null)
   const [loading, setLoading] = useState<boolean>()
 
   const btnLoading = loading || name?.length === 0 || !file
 
-  const uploadSubmit = useCallback(
-    async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault()
-      if (name?.length === 0 || !file) return
+  const uploadSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (name?.length === 0 || !file) return
 
-      const formData = new FormData(event.currentTarget)
-      formData.set('file', file as File)
-      setLoading(true)
-      await uploadFileAction(formData)
-    },
-    [file, name]
-  )
+    const formData = new FormData(event.currentTarget)
+    formData.set('file', file as File)
+    setLoading(true)
+    await uploadFileAction(formData)
+  }
 
   if (session && isRol) {
     return (

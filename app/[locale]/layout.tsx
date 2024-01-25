@@ -3,7 +3,6 @@ import { Inter as FontSans } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
 import { ThemeProvider } from '@/components/layouts/ThemeProvider'
-import Header from '@/components/layouts/Header'
 import SessionProviderWrapper from '@/components/layouts/SessionProviderWrapper'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
 
