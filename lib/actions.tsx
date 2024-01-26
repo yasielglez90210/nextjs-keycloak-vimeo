@@ -6,7 +6,13 @@ import { revalidateTag } from 'next/cache'
 import { join } from 'path'
 import { uploadVideo } from './vimeo'
 import { decrypt } from './utils'
+import { setAttributes } from './keycloak'
 
+/**
+ * Uploads a file and performs necessary actions after the upload is complete.
+ * @param formData - The form data containing the file to be uploaded.
+ * @returns {Promise<void>} - A promise that resolves when the upload and actions are complete.
+ */
 export async function uploadFileAction(formData: FormData) {
   const name = formData.get('name') as string
   const file = formData.get('file') as File
@@ -24,6 +30,11 @@ export async function uploadFileAction(formData: FormData) {
   redirect(`/video/${id}`)
 }
 
+/**
+ * Sets a Keycloak attribute.
+ * @param {Object} options - The options for setting the attribute.
+ * @returns {Promise<void>} - A promise that resolves when the attribute is set.
+ */
 export async function setKeycloakAttribute({
   user,
   access_token,
@@ -36,22 +47,7 @@ export async function setKeycloakAttribute({
   const userId = decrypt(user)
   const accessToken = decrypt(access_token)
 
-  const url = `${process.env.KEYCLOAK_HOST}/admin/realms/eternity/users/${userId}`
-
-  const body = JSON.stringify({
-    attributes: {
-      ...attributes,
-    },
-  })
-
-  const res = await fetch(url, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: body,
-  })
+  const res = await setAttributes({ userId, accessToken, attributes })
 
   if (!res.ok) {
     return false

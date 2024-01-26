@@ -2,10 +2,23 @@ import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import Cryptr from 'cryptr'
 
+/**
+ * Combines multiple class values into a single string.
+ *
+ * @param inputs - The class values to be combined.
+ * @returns The combined class string.
+ */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+/**
+ * Generates a pagination array based on the current page and total number of pages.
+ *
+ * @param currentPage - The current page number.
+ * @param totalPages - The total number of pages.
+ * @returns An array representing the pagination.
+ */
 export const generatePagination = (currentPage: number, totalPages: number) => {
   // If the total number of pages is 7 or less,
   // display all pages without any ellipsis.
@@ -39,6 +52,11 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
   ]
 }
 
+/**
+ * Encrypts a given text using a secret key.
+ * @param text - The text to be encrypted.
+ * @returns The encrypted string.
+ */
 export function encrypt(text: string) {
   const secretKey = process.env.NEXTAUTH_SECRET || ''
   const cryptr = new Cryptr(secretKey)
@@ -46,6 +64,12 @@ export function encrypt(text: string) {
   return encryptedString
 }
 
+/**
+ * Decrypts an encrypted string using a secret key.
+ *
+ * @param encryptedString - The string to be decrypted.
+ * @returns The decrypted string.
+ */
 export function decrypt(encryptedString: string) {
   const secretKey = process.env.NEXTAUTH_SECRET || ''
   const cryptr = new Cryptr(secretKey)

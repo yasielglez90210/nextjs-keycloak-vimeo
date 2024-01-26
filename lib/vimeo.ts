@@ -10,6 +10,14 @@ const VIMEO_PER_PAGE = process.env.VIMEO_PER_PAGE
 
 // const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
+/**
+ * Retrieves all videos from Vimeo API based on the specified page and query.
+ * @param {Object} options - The options for retrieving videos.
+ * @param {string} options.page - The page number to retrieve.
+ * @param {string} options.query - The search query for filtering videos.
+ * @returns {Promise<APIVimeo>} - A promise that resolves to the API response containing the videos.
+ * @throws {Error} - If there is an error fetching the videos.
+ */
 export async function getAllVideos({
   page,
   query,
@@ -44,6 +52,13 @@ export async function getAllVideos({
   // return apiVimeo
 }
 
+/**
+ * Retrieves a video from Vimeo by its ID.
+ * @param {Object} params - The parameters for the video retrieval.
+ * @param {string} params.id - The ID of the video to retrieve.
+ * @returns {Promise<Video | null>} - A promise that resolves to the retrieved video or null if not found.
+ * @throws {Error} - If there was an error fetching the video.
+ */
 export async function getVideo({ id }: { id: string }) {
   try {
     const path = `/videos/${id}`
@@ -71,6 +86,15 @@ export async function getVideo({ id }: { id: string }) {
   // return apiVimeo
 }
 
+/**
+ * Uploads a video to Vimeo.
+ *
+ * @param {Object} options - The options for uploading the video.
+ * @param {string} options.path - The path of the video file to upload.
+ * @param {string} options.name - The name of the video.
+ * @returns {Promise<string>} - A promise that resolves with the URI of the uploaded video.
+ * @throws {Error} - If there is an error uploading the video.
+ */
 export async function uploadVideo({
   path,
   name,
