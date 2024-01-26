@@ -24,15 +24,18 @@ export default function CreateVimeoPage() {
 
   const btnLoading = loading || name?.length === 0 || !file
 
-  const uploadSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    if (name?.length === 0 || !file) return
+  const uploadSubmit = useCallback(
+    async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      if (name?.length === 0 || !file) return
 
-    const formData = new FormData(event.currentTarget)
-    formData.set('file', file as File)
-    setLoading(true)
-    await uploadFileAction(formData)
-  }
+      const formData = new FormData(event.currentTarget)
+      formData.set('file', file as File)
+      setLoading(true)
+      await uploadFileAction(formData)
+    },
+    [file, name]
+  )
 
   if (session && isRol) {
     return (
@@ -50,6 +53,7 @@ export default function CreateVimeoPage() {
                 type="text"
                 id="name"
                 name="name"
+                autoFocus
                 placeholder={t('Title')}
                 value={name}
                 disabled={loading}
