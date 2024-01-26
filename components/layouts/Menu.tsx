@@ -26,6 +26,7 @@ export default function Menu() {
         <Avatar className="cursor-pointer">
           <AvatarImage
             role="img"
+            alt="User profile image"
             src={session ? 'https://github.com/shadcn.png' : ''}
           />
           <AvatarFallback>

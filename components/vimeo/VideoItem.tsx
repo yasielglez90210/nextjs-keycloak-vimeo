@@ -42,7 +42,7 @@ export default function VideoItem({ video }: { video: Video }) {
             priority
             sizes="cover"
             src={video.pictures.base_link}
-            alt={video.name}
+            alt={`Thumbnail for ${video.uri}`}
           />
 
           {isHovered && (
